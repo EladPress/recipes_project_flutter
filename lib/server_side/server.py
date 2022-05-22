@@ -48,6 +48,7 @@ def select_user(firstname : str, lastname : str, password : str):
             'firstname': result[0][1],
             'lastname' : result[0][2],
             'password' : result[0][3],
+            'isAdmin' : result[0][4],
         })
         return jsonify(dic)
     else:
