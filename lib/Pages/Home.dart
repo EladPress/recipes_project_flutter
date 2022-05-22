@@ -130,13 +130,16 @@ class _HomeState extends State<Home> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          print('pressed');
-          Navigator.pushNamed(context, 'AddRecipe');
-        },
-        child: Icon(Icons.add),
-        tooltip: 'Add recipe',
+      floatingActionButton: Visibility(
+        child: FloatingActionButton(
+          onPressed: () {
+            print('pressed');
+            Navigator.pushNamed(context, 'AddRecipe');
+          },
+          child: Icon(Icons.add),
+          tooltip: 'Add recipe',
+        ),
+        visible: user['isAdmin'] == 1,
       ),
     );
   }

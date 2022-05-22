@@ -84,9 +84,8 @@ class _UserFormState extends State<UserForm> {
     print(response.body.runtimeType);
     try {
       user = json.decode(response.body)[0];
-    } on Exception catch (e) {
-      
-    }
+      print(user);
+    } on Exception catch (e) {}
 
     setState(() {
       if (user.isEmpty)
