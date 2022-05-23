@@ -42,6 +42,7 @@ class _RecipeState extends State<Recipe> {
     tts.setSpeechRate(0.4);
     recipeLength = recipe.length;
     currentStep = recipe[index];
+    //print(recipe['id']);
     //print('recipe length = ' + recipeLength.toString());
 
     //String current = recipe[index];
