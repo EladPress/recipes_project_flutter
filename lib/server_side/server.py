@@ -105,6 +105,22 @@ def select_favorites(id : str):
     print(dic)
     return jsonify(dic)
 
+@app.route('/select_favorites_id/<string:user_id>')
+def select_favorites_id(user_id : str):
+    mycursor = mydb.cursor()
+    mycursor.execute('select recipe_id from favorites where user_id = ' + user_id)
+    myresult = list(mycursor.fetchall())
+    #for i in myresult:
+       # print(type(i[0]))
+
+    final = []
+    for i in myresult:
+        final.append(i[0])
+    
+    print(final)
+        
+
+    return jsonify(final)
 
 @app.route('/display_recipe/<string:recipe>')
 def display_recipe(recipe: str):

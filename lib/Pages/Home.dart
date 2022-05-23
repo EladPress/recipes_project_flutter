@@ -73,9 +73,20 @@ class _HomeState extends State<Home> {
                       Visibility(
                         child: IconButton(
                           onPressed: () {
-                            add_recipe(recipes[index]['id'], user['id']);
+                            if (!user['favorites']
+                                .contains(recipes[index]['id'])) {
+                              add_recipe(recipes[index]['id'], user['id']);
+                              setState(() {
+                                user['favorites'].add(recipes[index]['id']);
+                              });
+                            }
                           },
-                          icon: Icon(Icons.favorite_border),
+                          //icon: Icon(Icons.favorite_border),
+                          icon: Icon(user.isNotEmpty &&
+                                  user['favorites']
+                                      .contains(recipes[index]['id'])
+                              ? Icons.favorite
+                              : Icons.favorite_border),
                           tooltip: "Add to favorites",
                           color: Colors.red,
                         ),

@@ -79,13 +79,18 @@ class _UserFormState extends State<UserForm> {
   void login() async {
     if (!formKey.currentState!.validate()) return;
     formKey.currentState!.save();
-    final url = "/select_user/" + firstName + "/" + lastName + "/" + password;
+    var url = "/select_user/" + firstName + "/" + lastName + "/" + password;
     var response = await Methods.flaskRequest(url);
     print(response.body.runtimeType);
     try {
       user = json.decode(response.body)[0];
-      print(user);
+      //print(user);
     } on Exception catch (e) {}
+    if (user.isNotEmpty) {
+      url = '/select_favorites_id/' + user['id'].toString();
+      response = await Methods.flaskRequest(url);
+      user['favorites'] = json.decode(response.body) as List;
+    }
 
     setState(() {
       if (user.isEmpty)
