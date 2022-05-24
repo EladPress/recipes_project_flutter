@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import 'package:final_project_v0/MyAppBar.dart';
+import 'package:final_project_v0/Pages/AddRecipe.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'Variables.dart';
+import 'package:final_project_v0/Methods.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -17,6 +19,18 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     List recipes = ModalRoute.of(context)!.settings.arguments as List;
+
+    print(recipes[2]['id']); /////////
+
+    Future<void> add_recipe(int recipe_id, int user_id) async {
+      print('recipeid: ' +
+          recipe_id.toString() +
+          ", userid: " +
+          user_id.toString());
+      final url =
+          '/insert_favorite/' + recipe_id.toString() + '/' + user_id.toString();
+      var response = await Methods.flaskRequest(url);
+    }
 
     void test() {
       setState(() {
@@ -56,6 +70,29 @@ class _HomeState extends State<Home> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
+                      Visibility(
+                        child: IconButton(
+                          onPressed: () {
+                            if (!user['favorites']
+                                .contains(recipes[index]['id'])) {
+                              add_recipe(recipes[index]['id'], user['id']);
+                              setState(() {
+                                user['favorites'].add(recipes[index]['id']);
+                              });
+                            }
+                          },
+                          //icon: Icon(Icons.favorite_border),
+                          icon: Icon(user.isNotEmpty &&
+                                  user['favorites']
+                                      .contains(recipes[index]['id'])
+                              ? Icons.favorite
+                              : Icons.favorite_border),
+                          tooltip: "Add to favorites",
+                          color: Colors.red,
+                        ),
+                        visible: user.isNotEmpty,
+                      ),
+                      Spacer(),
                       ElevatedButton(
                         onPressed: () {
                           //Navigator.pushNamed(context, 'Recipe',
@@ -107,7 +144,7 @@ class _HomeState extends State<Home> {
                     });
                   },
                   icon: Icon(Icons.logout)),
-                  visible: user.isNotEmpty,
+              visible: user.isNotEmpty,
             ),
             Spacer(),
             Visibility(

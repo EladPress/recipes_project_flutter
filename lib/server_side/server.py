@@ -32,6 +32,13 @@ def insert_recipe(name : str, description : str, recipe : str, thumbnail : str):
     mydb.commit()
     return 'entered {} to Database'.format(name)
 
+@app.route('/insert_favorite/<string:recipe_id>/<string:user_id>', methods = ['POST', 'GET'])
+def insert_favorite(recipe_id : str, user_id : str):
+    mycursor = mydb.cursor()
+    mycursor.execute('insert into favorites(recipe_id, user_id) values({}, {})'.format(recipe_id, user_id))
+    mydb.commit()
+    return 'entered to Database'
+
 @app.route('/select_user/<string:firstname>/<string:lastname>/<string:password>', methods = ['GET'])
 def select_user(firstname : str, lastname : str, password : str):
     mycursor = mydb.cursor()
@@ -98,6 +105,22 @@ def select_favorites(id : str):
     print(dic)
     return jsonify(dic)
 
+@app.route('/select_favorites_id/<string:user_id>')
+def select_favorites_id(user_id : str):
+    mycursor = mydb.cursor()
+    mycursor.execute('select recipe_id from favorites where user_id = ' + user_id)
+    myresult = list(mycursor.fetchall())
+    #for i in myresult:
+       # print(type(i[0]))
+
+    final = []
+    for i in myresult:
+        final.append(i[0])
+    
+    print(final)
+        
+
+    return jsonify(final)
 
 @app.route('/display_recipe/<string:recipe>')
 def display_recipe(recipe: str):
