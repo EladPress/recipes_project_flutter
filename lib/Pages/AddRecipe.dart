@@ -47,7 +47,7 @@ class _AddRecipeState extends State<AddRecipe> {
   void Submit() async {
     if (!formKey.currentState!.validate()) return;
     formKey.currentState!.save();
-    String url1 = '/process_recipe/' + url;
+    String url1 = '/process_recipe2/' + url;
     var response = await Methods.flaskRequest(url1);
     var recipe = response.body;
     final url2 =

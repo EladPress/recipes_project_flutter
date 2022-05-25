@@ -124,6 +124,7 @@ def select_favorites_id(user_id : str):
 
 @app.route('/display_recipe/<string:recipe>')
 def display_recipe(recipe: str):
+    print(recipe)
     #txt = '1 Dough 2 Tomato sauce 3 Cheese '
     txt = recipe
     result = re.findall('\d((\s[A-Za-z]+)+)', txt)
@@ -132,6 +133,55 @@ def display_recipe(recipe: str):
         final_result.append(i[0])
     print(final_result)
     return jsonify(final_result)
+
+@app.route('/display_recipe2/<string:recipe>')
+def display_recipe2(recipe: str):
+    #print(recipe)
+    #txt = '1 Dough 2 Tomato sauce 3 Cheese '
+    txt = recipe
+    
+    equipment = re.match("Equipment: (([A-Za-z]+)(,?)\s)+", txt).group(0)
+    #print(list(result))
+    #print(result)
+    #equipment = str(result.split(':'))
+    #return equipment
+
+    #return txt
+    ingredients = re.search("Ingredients: (([A-Za-z]+)(,?)\s)+", txt).group(0)
+    
+    #print(str(new_result))
+    #return str(equipment + ingredients)
+    #ingredients = str(result.split(':')[1])
+    #return ingredients
+
+    #print(len(result))
+    #return str(result)
+    result = re.findall('\d((\s[A-Za-z]+)+)', txt)
+    print(str(result))
+    final_result = list()
+    final_result.append(equipment)
+    final_result.append(ingredients)
+    for i in result:
+        final_result.append(i[0])
+    print(final_result)
+    return jsonify(final_result)
+
+@app.route('/process_recipe2/<path:url>')
+def process_recipe2(url : path):
+    session = HTMLSession()
+    r = session.get(url)
+    #print(r.html.find('h1'))
+    final = ''
+    for i in r.html.find('h1'):
+        print(i.text)
+        final += i.text + ' '
+    print('///////////////')
+    about = r.html.find('h2')
+    
+    for i in about:
+        print(i.text)
+        final += i.text + ' '
+    return final
 
 @app.route('/process_recipe/<path:url>')
 def process_recipe(url : path):
@@ -144,7 +194,7 @@ def process_recipe(url : path):
         final += i.text + ' '
     return final
     
-    #print(r.html.find('h2'))
+    '''#print(r.html.find('h2'))
     
     return r.text
     
@@ -153,7 +203,7 @@ def process_recipe(url : path):
     for i in result:
         final_result.append(i[0])
     print(final_result)
-    return jsonify(final_result)
+    return jsonify(final_result)'''
 
 
 if __name__ == "__main__":
