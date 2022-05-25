@@ -33,7 +33,7 @@ class _LoadingState extends State<Loading> {
     final url = "/display_recipe2/" + map['recipe'];
     var response = await Methods.flaskRequest(url);
     List data = jsonDecode(response.body) as List;
-    Navigator.pushReplacementNamed(context, 'Recipe', arguments: data);//test
+    Navigator.pushReplacementNamed(context, 'Recipe', arguments: data);
     //print(data[1]);
     //print(response.body);
     //print(recipe[0]);
