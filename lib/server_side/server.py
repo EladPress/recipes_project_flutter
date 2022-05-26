@@ -156,16 +156,35 @@ def display_recipe2(recipe: str):
 
     #print(len(result))
     #return str(result)
-    result = re.findall('\d((\s[A-Za-z]+)+)', txt)
-    print(str(result))
+    result = re.finditer('\d((\s[A-Za-z]+)(,?)(\.?)+)+', txt)
+    test_list = []
+    for i in result:
+        test_list.append(i.group()[2:])
+    #return (str(test_list))
+    temp_recipe = ''.join(test_list)
+    #return temp_recipe
+    final_recipe = temp_recipe.split('.')
+    '''print('length:' + str(len(test_list)))
+    for i in test_list:
+        i.split('.')
+    print('length:' + str(len(test_list)))
+    return str(test_list)'''
+    
+    
+    #return str(test_list)
+    #print(str(result))
     final_result = list()
     final_result.append(equipment)
     final_result.append(ingredients)
-    for i in result:
-        final_result.append(i[0])
+    #final_result.append(test_list)
+    #for i in test_list:
+       # final_result.append(i)
+    for i in final_recipe:
+        final_result.append(i)
+    del final_result[-1]
     #print(final_result)
-    for i in final_result:
-        print(i)
+    #for i in final_result:
+        #print(i)
     return jsonify(final_result)
 
 @app.route('/process_recipe2/<path:url>')

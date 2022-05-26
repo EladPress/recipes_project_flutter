@@ -71,16 +71,18 @@ class _RecipeState extends State<Recipe> {
                   height: 200,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25),
-                    child: Text(
-                      //recipe text
-                      recipe[index],
-                      textAlign: TextAlign.center,
-
-                      style: TextStyle(
-                          fontSize: 28,
-                          color: Colors.grey[600],
-                          fontWeight: FontWeight.bold,
-                          height: 1.5),
+                    child: SingleChildScrollView(
+                      child: Text(
+                        //recipe text
+                        recipe[index],
+                        textAlign: TextAlign.center,
+                    
+                        style: TextStyle(
+                            fontSize: 28,
+                            color: Colors.grey[600],
+                            fontWeight: FontWeight.bold,
+                            height: 1.5),
+                      ),
                     ),
                   ),
                 ),
