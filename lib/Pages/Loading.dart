@@ -16,7 +16,7 @@ class _LoadingState extends State<Loading> {
   Map map = {};
   Future<void> getRecipes() async {
     final url = "/select_recipes";
-    var response = await Methods.flaskRequest(url); // as http.Response;
+    var response = await Methods.flaskRequest(url); 
     List data = jsonDecode(response.body);
     Navigator.pushReplacementNamed(context, 'Home', arguments: data);
   }
@@ -29,14 +29,12 @@ class _LoadingState extends State<Loading> {
   }
 
   Future<void> getFinalRecipe() async {
-    //var recipe = map['recipe'];
+
     final url = "/display_recipe2/" + map['recipe'];
     var response = await Methods.flaskRequest(url);
     List data = jsonDecode(response.body) as List;
     Navigator.pushReplacementNamed(context, 'Recipe', arguments: data);
-    //print(data[1]);
-    //print(response.body);
-    //print(recipe[0]);
+
   }
 
   @override

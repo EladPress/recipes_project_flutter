@@ -134,10 +134,7 @@ class _UserFormState extends State<UserForm> {
             },
             child: Text(
               submit_button,
-              /*style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-              ),*/
+              
             ),
           ),
           Visibility(

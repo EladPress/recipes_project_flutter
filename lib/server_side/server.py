@@ -141,50 +141,26 @@ def display_recipe2(recipe: str):
     txt = recipe
     
     equipment = re.search("Equipment: (([A-Za-z]+)(,?)\s)+", txt).group(0)
-    #print(list(result))
-    #print(result)
-    #equipment = str(result.split(':'))
-    #return equipment
 
-    #return txt
     ingredients = re.search("Ingredients: (([A-Za-z]+)(,?)\s)+", txt).group(0)
     
-    #print(str(new_result))
-    #return str(equipment + ingredients)
-    #ingredients = str(result.split(':')[1])
-    #return ingredients
-
-    #print(len(result))
-    #return str(result)
     result = re.finditer('\d((\s[A-Za-z]+)(,?)(\.?)+)+', txt)
     test_list = []
     for i in result:
         test_list.append(i.group()[2:])
-    #return (str(test_list))
+
     temp_recipe = ''.join(test_list)
-    #return temp_recipe
+
     final_recipe = temp_recipe.split('.')
-    '''print('length:' + str(len(test_list)))
-    for i in test_list:
-        i.split('.')
-    print('length:' + str(len(test_list)))
-    return str(test_list)'''
     
-    
-    #return str(test_list)
-    #print(str(result))
     final_result = list()
     final_result.append(equipment)
     final_result.append(ingredients)
-    #final_result.append(test_list)
-    #for i in test_list:
-       # final_result.append(i)
+    
     for i in final_recipe:
         final_result.append(i)
     del final_result[-1]
-    #print(final_result)
-    #for i in final_result:
-        #print(i)
+    
     return jsonify(final_result)
 
 @app.route('/process_recipe2/<path:url>')
@@ -203,28 +179,6 @@ def process_recipe2(url : path):
         print(i.text)
         final += i.text + ' '
     return final
-
-'''@app.route('/process_recipe/<path:url>')
-def process_recipe(url : path):
-    session = HTMLSession()
-    r = session.get(url)
-    about = r.html.find('h2')
-    final = ''
-    for i in about:
-        print(i.text)
-        final += i.text + ' '
-    return final
-    
-    #print(r.html.find('h2'))
-    
-    return r.text
-    
-    result = re.findall('\d((\s[A-Za-z]+)+)', r.text)
-    final_result = list()
-    for i in result:
-        final_result.append(i[0])
-    print(final_result)
-    return jsonify(final_result)'''
 
 
 if __name__ == "__main__":
