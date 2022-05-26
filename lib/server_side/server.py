@@ -140,7 +140,7 @@ def display_recipe2(recipe: str):
     #txt = '1 Dough 2 Tomato sauce 3 Cheese '
     txt = recipe
     
-    equipment = re.match("Equipment: (([A-Za-z]+)(,?)\s)+", txt).group(0)
+    equipment = re.search("Equipment: (([A-Za-z]+)(,?)\s)+", txt).group(0)
     #print(list(result))
     #print(result)
     #equipment = str(result.split(':'))

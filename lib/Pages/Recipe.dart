@@ -42,6 +42,7 @@ class _RecipeState extends State<Recipe> {
     tts.setSpeechRate(0.4);
     recipeLength = recipe.length;
     currentStep = recipe[index];
+
     //print(recipe['id']);
     //print('recipe length = ' + recipeLength.toString());
 
@@ -60,52 +61,63 @@ class _RecipeState extends State<Recipe> {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          //Spacer(),
           SizedBox(
-            height: 200,
+            height: 100,
           ),
           Center(
-              child: Column(
-            children: [
-              Text(
-                recipe[index],
-                style: TextStyle(
-                  fontSize: 28,
-                  color: Colors.grey[600],
-                  fontWeight: FontWeight.bold,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 200,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
+                    child: Text(
+                      //recipe text
+                      recipe[index],
+                      textAlign: TextAlign.center,
+
+                      style: TextStyle(
+                          fontSize: 28,
+                          color: Colors.grey[600],
+                          fontWeight: FontWeight.bold,
+                          height: 1.5),
+                    ),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 100,
-              ),
-              FloatingActionButton(
-                heroTag: 'output button',
-                onPressed: () {
-                  tts.speak(recipe[index]);
-                },
-                child: Icon(Icons.volume_up),
-                foregroundColor: Colors.white,
-              ),
-              AvatarGlow(
-                animate: isListening,
-                glowColor: Theme.of(context).primaryColor,
-                endRadius: 75.0,
-                duration: const Duration(milliseconds: 2000),
-                repeatPauseDuration: const Duration(milliseconds: 100),
-                repeat: true,
-                child: FloatingActionButton(
-                  heroTag: 'mic button',
+                SizedBox(
+                  height: 100,
+                ),
+                FloatingActionButton(
+                  //text to speech button
+                  heroTag: 'output button',
                   onPressed: () {
-                    listen();
-                    //constantListening();
-                    print(isListening);
+                    tts.speak(recipe[index]);
                   },
-                  child: Icon(isListening ? Icons.mic : Icons.mic_none),
+                  child: Icon(Icons.volume_up),
                   foregroundColor: Colors.white,
                 ),
-              )
-            ],
-          )),
+                AvatarGlow(
+                  animate: isListening,
+                  glowColor: Theme.of(context).primaryColor,
+                  endRadius: 75.0,
+                  duration: const Duration(milliseconds: 2000),
+                  repeatPauseDuration: const Duration(milliseconds: 100),
+                  repeat: true,
+                  child: FloatingActionButton(
+                    //speech to text button
+                    heroTag: 'mic button',
+                    onPressed: () {
+                      listen();
+                      //constantListening();
+                      print(isListening);
+                    },
+                    child: Icon(isListening ? Icons.mic : Icons.mic_none),
+                    foregroundColor: Colors.white,
+                  ),
+                )
+              ],
+            ),
+          ),
           //SizedBox(height: 100),
           Spacer(),
           Padding(
@@ -114,32 +126,47 @@ class _RecipeState extends State<Recipe> {
               mainAxisAlignment: MainAxisAlignment.center,
               //crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                FloatingActionButton(
-                  onPressed: () {
-                    back();
-                  },
-                  child: Icon(Icons.chevron_left),
-                  foregroundColor: Colors.white,
-                  heroTag: null,
+                Visibility(
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      back();
+                    },
+                    child: Icon(Icons.chevron_left),
+                    foregroundColor: Colors.white,
+                    heroTag: null,
+                  ),
+                  visible: index > 0,
+                  maintainState: true,
+                  maintainSize: true,
+                  maintainAnimation: true,
                 ),
                 //SizedBox(width: 260),
                 Spacer(),
-                Text(
-                  (index + 1).toString(),
-                  style: TextStyle(
-                    fontSize: 28,
-                    color: Colors.grey[600],
-                    fontWeight: FontWeight.bold,
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    (index + 1).toString(),
+                    style: TextStyle(
+                      fontSize: 28,
+                      color: Colors.grey[600],
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 Spacer(),
-                FloatingActionButton(
-                  onPressed: () {
-                    next(recipe.length);
-                  },
-                  child: Icon(Icons.chevron_right),
-                  foregroundColor: Colors.white,
-                  heroTag: null,
+                Visibility(
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      next(recipe.length);
+                    },
+                    child: Icon(Icons.chevron_right),
+                    foregroundColor: Colors.white,
+                    heroTag: null,
+                  ),
+                  visible: index < recipeLength - 1,
+                  maintainState: true,
+                  maintainSize: true,
+                  maintainAnimation: true,
                 ),
               ],
             ),
@@ -204,10 +231,10 @@ class _RecipeState extends State<Recipe> {
             print(val.recognizedWords);
             //if (val.recognizedWords.contains('stop')) print('stop');
             if (val.recognizedWords.contains('next')) {
-              next(3); ///////////////
+              next(recipeLength); ///////////////
 
             }
-
+            print(val.recognizedWords);
             if (val.recognizedWords.contains('repeat')) {
               tts.speak(recipe[index]);
             }
