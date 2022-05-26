@@ -44,5 +44,21 @@ def pizza2():
     <h2> 6 insert into the oven for 15 minutes or until the crust and cheese are golden brown </h2>
     
     '''
+
+@app.route('/tomato_spaghetti')
+def tomato_spaghetti():
+    return '''
+    <h1> Equipment: Normal cooking equipment </h1>
+    <h1> Ingredients: Two tbsp of butter, one half tbsp oil, one small onion, finely chopped, two cloves of garlic, crushed,
+    one large carrot, finely chopped, two stalks of celery, finely chopped, two chopped tomatoes, one half tbsp dried oregano,
+    twenty capers, cut in half or thirds, salt and pepper to taste </h1>
+
+    <h2>1  Add the butter and oil to a pan and melt. Add in the onion and cook on a medium heat for three minutes 
+    until it starts to soften. Add the carrots, celery and garlic and fry for another couple of minutes, 
+    stirring regularly. </h2>
+    <h2>2 Pour in the chopped tomatoes, dried oregano and chopped capers and mix well. </h2>
+    <h2>3 Cook on a high simmer for twelve minutes before serving with cooked spaghetti.
+     Season with salt and pepper to taste. </h2>
+    '''
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="8082")

@@ -122,7 +122,7 @@ def select_favorites_id(user_id : str):
 
     return jsonify(final)
 
-@app.route('/display_recipe/<string:recipe>')
+'''@app.route('/display_recipe/<string:recipe>')
 def display_recipe(recipe: str):
     print(recipe)
     #txt = '1 Dough 2 Tomato sauce 3 Cheese '
@@ -132,7 +132,7 @@ def display_recipe(recipe: str):
     for i in result:
         final_result.append(i[0])
     print(final_result)
-    return jsonify(final_result)
+    return jsonify(final_result)'''
 
 @app.route('/display_recipe2/<string:recipe>')
 def display_recipe2(recipe: str):
@@ -163,7 +163,9 @@ def display_recipe2(recipe: str):
     final_result.append(ingredients)
     for i in result:
         final_result.append(i[0])
-    print(final_result)
+    #print(final_result)
+    for i in final_result:
+        print(i)
     return jsonify(final_result)
 
 @app.route('/process_recipe2/<path:url>')
@@ -183,7 +185,7 @@ def process_recipe2(url : path):
         final += i.text + ' '
     return final
 
-@app.route('/process_recipe/<path:url>')
+'''@app.route('/process_recipe/<path:url>')
 def process_recipe(url : path):
     session = HTMLSession()
     r = session.get(url)
@@ -194,7 +196,7 @@ def process_recipe(url : path):
         final += i.text + ' '
     return final
     
-    '''#print(r.html.find('h2'))
+    #print(r.html.find('h2'))
     
     return r.text
     

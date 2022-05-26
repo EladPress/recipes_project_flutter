@@ -184,6 +184,7 @@ class _RecipeState extends State<Recipe> {
         //current = recipe[index];
         print(index);
       });
+      tts.speak(recipe[index]);
     }
   }
 
@@ -195,6 +196,7 @@ class _RecipeState extends State<Recipe> {
         //current = recipe[index];
         print(index);
       });
+      tts.speak(recipe[index]);
     }
   }
 
