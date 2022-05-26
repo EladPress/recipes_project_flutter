@@ -47,7 +47,7 @@ class _AddRecipeState extends State<AddRecipe> {
   void Submit() async {
     if (!formKey.currentState!.validate()) return;
     formKey.currentState!.save();
-    String url1 = '/process_recipe/' + url;
+    String url1 = '/process_recipe2/' + url;
     var response = await Methods.flaskRequest(url1);
     var recipe = response.body;
     final url2 =
@@ -60,43 +60,51 @@ class _AddRecipeState extends State<AddRecipe> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.orange,
-          foregroundColor: Colors.white,
-          title: Text('New Recipe'),
-          centerTitle: true,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Form(
-            key: formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                buildField('name'),
-                buildField('description'),
-                buildField('URL'),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    final_result,
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.grey[600],
-                      fontWeight: FontWeight.bold,
+    return WillPopScope(
+      onWillPop: () {
+        Navigator.pop(context);
+        Navigator.pop(context);
+        Navigator.pushNamed(context, 'Loading', arguments: {});
+        return Future.value(false);
+      },
+      child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.orange,
+            foregroundColor: Colors.white,
+            title: Text('New Recipe'),
+            centerTitle: true,
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Form(
+              key: formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  buildField('name'),
+                  buildField('description'),
+                  buildField('URL'),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      final_result,
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.grey[600],
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    Submit();
-                  },
-                  child: Text('Submit'),
-                ),
-              ],
+                  ElevatedButton(
+                    onPressed: () async {
+                      Submit();
+                    },
+                    child: Text('Submit'),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ));
+          )),
+    );
   }
 }
