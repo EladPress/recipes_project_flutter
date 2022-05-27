@@ -233,9 +233,8 @@ class _RecipeState extends State<Recipe> {
           partialResults: false,
           onResult: (val) => setState(() {
             print(val.recognizedWords);
-            //if (val.recognizedWords.contains('stop')) print('stop');
             if (val.recognizedWords.contains('next')) {
-              next(recipeLength); ///////////////
+              next(recipeLength); 
 
             }
             print(val.recognizedWords);
@@ -254,7 +253,7 @@ class _RecipeState extends State<Recipe> {
           }),
         );
         print('here1');
-        //print('islistening:' + isListening.toString());
+
       }
     } else {
       setState(() => isListening = false);

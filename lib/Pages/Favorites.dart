@@ -64,10 +64,7 @@ class _FavoritesState extends State<Favorites> {
                   )
                   //Image.network(recipes[index]['thumbnail']),
                 ],
-                //leading: CircleAvatar(
-                //backgroundImage: NetworkImage(recipes[index]['thumbnail']),
-                //
-                //),
+                
               ),
             ),
           );
